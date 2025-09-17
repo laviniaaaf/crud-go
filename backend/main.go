@@ -50,7 +50,7 @@ func main() {
 		fs.ServeHTTP(w, req)
 	})
 
-	log.Println("Servidor rodando em http://localhost:8080")
+	log.Println("Servidor rodando em http://localhost:8081 <---")
 	if err := http.ListenAndServe(":8080", r); err != nil {
 		log.Fatal(err)
 	}
