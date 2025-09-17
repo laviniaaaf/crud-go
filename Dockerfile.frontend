@@ -1,9 +1,9 @@
 FROM nginx:alpine
 
-# Copia os arquivos estáticos do frontend
+# copia os arquivos do frontend
 COPY ./frontend /usr/share/nginx/html
 
-# Usa a configuração customizada do Nginx (se existir)
+# usa a configuração do Nginx 
 COPY ./frontend/nginx.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 80

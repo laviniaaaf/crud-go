@@ -1,6 +1,5 @@
 FROM golang:1.25-alpine AS builder
 
-
 WORKDIR /app
 
 # Instala git e certificados
@@ -20,15 +19,15 @@ FROM alpine:latest
 WORKDIR /app
 RUN apk add --no-cache ca-certificates
 
-# Copia binário compilado
+# Copia o binário compilado
 COPY --from=builder /app/main .
 
-# Copia os arquivos estáticos do frontend para serem servidos pelo backend
+# Copia os arquivos o frontend para serem servidos pelo backend
 COPY ./frontend ./frontend
 
 EXPOSE 8080
 CMD ["./main"]
 
-#
+# docker compose up --build
 #docker compose ps
 # para o conteiner = docker compose down

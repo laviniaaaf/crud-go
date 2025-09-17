@@ -37,7 +37,7 @@ async function carregarItens() {
     }
 }
 
-// CREATE / UPDATE: 
+
 form.addEventListener('submit', async (event) => {
     event.preventDefault();
 

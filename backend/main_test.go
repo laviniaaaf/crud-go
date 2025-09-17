@@ -43,8 +43,6 @@ func TestMain(m *testing.M) {
 	m.Run() // executa os testes
 }
 
-// teste para a funcao createItem
-
 func TestCreateItem(t *testing.T) {
 
 	t.Run("sucesso", func(t *testing.T) {
@@ -102,7 +100,6 @@ func TestCreateItem(t *testing.T) {
 	})
 }
 
-// teste da funcao readItems
 func TestReadItems(t *testing.T) {
 
 	rows := sqlmock.NewRows([]string{"id", "nome", "preco"}).
@@ -144,7 +141,6 @@ func TestReadItems(t *testing.T) {
 	}
 }
 
-// teste da funcao updateItem
 func TestUpdateItem(t *testing.T) {
 
 	t.Run("sucesso", func(t *testing.T) {
@@ -191,7 +187,6 @@ func TestUpdateItem(t *testing.T) {
 	})
 }
 
-// teste da funcao deleteItem
 func TestDeleteItem(t *testing.T) {
 
 	t.Run("sucesso", func(t *testing.T) {
