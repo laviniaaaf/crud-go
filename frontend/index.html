@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerenciamento do CRUD</title>
+  <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+  <h1>Create | Read | Update | Delete</h1>
+
+  <h2>Formulário de Itens</h2>
+  <form id="form-item">
+    <input type="hidden" id="item-id">
+
+    <div>
+      <label for="nome">Nome do Item:</label>
+      <input type="text" id="nome" placeholder="Ex: Notebook" required>
+    </div>
+
+    <div>
+      <label for="preco">Preço:</label>
+      <input type="number" id="preco" step="0.01" placeholder="Ex: 4500.50" required>
+    </div>
+
+    <button type="submit" id="btn-submit">Adicionar Item</button>
+    <button type="button" id="btn-cancelar" onclick="cancelarEdicao()">Cancelar Edição</button>
+  </form>
+
+  <div>
+    <label for="busca">Buscar item pelo ID:</label>
+    <input type="number" id="busca" placeholder="Ex: ID = 2" required>
+    <button type="button" id="btn-buscar" onclick="buscarItem()">Buscar</button>
+  </div>
+
+  <ul id="resultado-busca"></ul>
+
+  <h2>Lista de Itens</h2>
+  <ul id="lista-itens"></ul>
+
+  <script src="/script.js"></script>
+</body>
+</html>

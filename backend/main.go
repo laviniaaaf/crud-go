@@ -1,0 +1,57 @@
+package main
+
+import (
+	"log"
+	"net/http"
+	"time"
+
+	"github.com/go-chi/chi/v5"
+	"github.com/go-chi/cors"
+)
+
+func main() {
+	// espera um pouco para garantir que o banco de dados ta pronto
+	time.Sleep(3 * time.Second)
+
+	// inicia o banco e cria a tabela
+	db = InitDB()
+
+	defer db.Close()
+
+	r := chi.NewRouter()
+
+	// middleware CORS
+	r.Use(cors.Handler(cors.Options{
+		AllowedOrigins: []string{"*"},
+		AllowedMethods: []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+		AllowedHeaders: []string{"Accept", "Authorization", "Content-Type", "X-CSRF-Token"},
+		ExposedHeaders: []string{"Link"},
+		MaxAge:         300,
+	}))
+
+	// rotas da API
+	r.Route("/itens", func(r chi.Router) {
+		r.Post("/", createItem)
+		r.Get("/", readItems)
+		r.Get("/{id}", getItemByID)
+		r.Put("/{id}", updateItem)
+		r.Delete("/{id}", deleteItem)
+	})
+
+	// frontend
+	frontendPath := "./frontend"
+	fs := http.FileServer(http.Dir(frontendPath))
+
+	r.Get("/*", func(w http.ResponseWriter, req *http.Request) {
+		if req.URL.Path == "/" {
+			http.ServeFile(w, req, frontendPath+"/index.html")
+			return
+		}
+		fs.ServeHTTP(w, req)
+	})
+
+	log.Println("Servidor rodando em http://localhost:8080")
+	if err := http.ListenAndServe(":8080", r); err != nil {
+		log.Fatal(err)
+	}
+}
