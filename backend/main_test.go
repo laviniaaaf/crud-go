@@ -23,15 +23,11 @@ import (
 // mockDB = variavel global para mock do banco
 var mockDB sqlmock.Sqlmock // define variavel global mockDB
 
-// funcao principal de teste
-
 func TestMain(m *testing.M) {
 
-	var err error // variavel para armazenar erros
+	var err error 
 
 	db, mockDB, err = sqlmock.New() // cria mock do banco de dados
-
-	// verifica se tem erro na criacao do mock
 
 	if err != nil {
 		panic("Erro ao criar mock do banco de dados: " + err.Error())
@@ -61,7 +57,6 @@ func TestCreateItem(t *testing.T) {
 
 		createItem(rr, req)
 
-		// verifica status da resposta
 		if status := rr.Code; status != http.StatusOK {
 			t.Errorf("Codigo de status inesperado: recebido %v, esperado %v", status, http.StatusOK)
 		}
@@ -70,7 +65,7 @@ func TestCreateItem(t *testing.T) {
 
 		err := json.Unmarshal(rr.Body.Bytes(), &createdItem) // decodifica resposta JSON
 
-		// verifica erro de decodificacao
+		
 		if err != nil {
 			t.Fatal("Erro ao decodificar JSON da resposta:", err) //  para a execucao
 		}
@@ -80,7 +75,7 @@ func TestCreateItem(t *testing.T) {
 			t.Errorf("ID do item criado inesperado: recebido %d, esperado %d", createdItem.ID, 1)
 		}
 
-		// verifica se expectativas do mock foram atendidas
+		
 		if err := mockDB.ExpectationsWereMet(); err != nil {
 			t.Errorf("Expectativas do mock nao atendidas: %s", err)
 		}
@@ -92,7 +87,7 @@ func TestCreateItem(t *testing.T) {
 
 		rr := httptest.NewRecorder()
 
-		createItem(rr, req) // chama funcao createItem
+		createItem(rr, req) 
 
 		if status := rr.Code; status != http.StatusBadRequest {
 			t.Errorf("Codigo de status inesperado: recebido %v, esperado %v", status, http.StatusBadRequest)
@@ -103,8 +98,8 @@ func TestCreateItem(t *testing.T) {
 func TestReadItems(t *testing.T) {
 
 	rows := sqlmock.NewRows([]string{"id", "nome", "preco"}).
-		AddRow(1, "Monitor", 850.50). // add
-		AddRow(2, "Teclado", 120.00)  // add linha
+		AddRow(1, "Monitor", 850.50). 
+		AddRow(2, "Teclado", 120.00)  
 
 	mockDB.ExpectQuery("SELECT id, nome, preco FROM itens"). // espera execucao de SELECT
 									WillReturnRows(rows) // retorna as linhas
@@ -123,7 +118,7 @@ func TestReadItems(t *testing.T) {
 
 	err := json.Unmarshal(rr.Body.Bytes(), &items) // decodifica JSON
 
-	if err != nil { // verifica erro
+	if err != nil { 
 		t.Fatal("Erro ao decodificar JSON da resposta:", err)
 	}
 
@@ -132,7 +127,7 @@ func TestReadItems(t *testing.T) {
 		t.Errorf("Numero de itens inesperado: recebido %d, esperado %d", len(items), 2)
 	}
 
-	if items[0].Nome != "Monitor" { // verifica nome do primeiro item
+	if items[0].Nome != "Monitor" { 
 		t.Errorf("Nome do item inesperado: recebido %s, esperado %s", items[0].Nome, "Monitor")
 	}
 
@@ -157,7 +152,7 @@ func TestUpdateItem(t *testing.T) {
 
 		req := httptest.NewRequest("PUT", "/itens/"+strconv.Itoa(id), bytes.NewReader(body)) // cria requisicao PUT
 
-		rr := httptest.NewRecorder() // cria recorder
+		rr := httptest.NewRecorder() 
 
 		mockDB.ExpectExec("UPDATE itens"). // espera execucao de UPDATE
 							WithArgs(item.Nome, item.Preco, id).      // argumentos esperados
@@ -165,11 +160,11 @@ func TestUpdateItem(t *testing.T) {
 
 		r.ServeHTTP(rr, req) // executa requisicao no router
 
-		if status := rr.Code; status != http.StatusOK { // verifica status
+		if status := rr.Code; status != http.StatusOK { 
 			t.Errorf("Codigo de status inesperado: recebido %v, esperado %v", status, http.StatusOK)
 		}
 
-		if err := mockDB.ExpectationsWereMet(); err != nil { // verifica expectativas do mock
+		if err := mockDB.ExpectationsWereMet(); err != nil { 
 			t.Errorf("Expectativas do mock nao atendidas: %s", err)
 		}
 	})
@@ -177,7 +172,7 @@ func TestUpdateItem(t *testing.T) {
 	t.Run("id_invalido", func(t *testing.T) { // caso de ID invalido
 		req := httptest.NewRequest("PUT", "/itens/nao-e-um-id", nil) // cria requisicao invalida
 
-		rr := httptest.NewRecorder() // cria recorder
+		rr := httptest.NewRecorder() 
 
 		updateItem(rr, req)
 
@@ -198,7 +193,7 @@ func TestDeleteItem(t *testing.T) {
 
 		r.Delete("/itens/{id}", deleteItem) // define a rota DELETE
 
-		req := httptest.NewRequest("DELETE", "/itens/"+strconv.Itoa(id), nil) // cria a  requisicao DELETE
+		req := httptest.NewRequest("DELETE", "/itens/"+strconv.Itoa(id), nil) 
 
 		rr := httptest.NewRecorder()
 
@@ -213,7 +208,7 @@ func TestDeleteItem(t *testing.T) {
 			t.Errorf("Codigo de status inesperado: recebido %v, esperado %v", status, http.StatusOK)
 		}
 
-		if err := mockDB.ExpectationsWereMet(); err != nil { // verifica expectativas do mock
+		if err := mockDB.ExpectationsWereMet(); err != nil { 
 			t.Errorf("Expectativas do mock nao atendidas: %s", err)
 		}
 	})
