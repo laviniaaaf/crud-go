@@ -12,16 +12,18 @@ import (
 
 var db *sql.DB
 
-// inicializa a conexao com o banco e cria a tabela
+// initialize the connection to the database and create the table
+
 func InitDB() *sql.DB {
-	// variáveis de ambiente definidas no docker-compose
+	
+// environment variables defined in docker-compose
 	dbUser := getEnvOrDefault("DB_USER", "usuario")
 	dbPass := getEnvOrDefault("DB_PASS", "senha123")
 	dbHost := getEnvOrDefault("DB_HOST", "localhost")
 	dbPort := getEnvOrDefault("DB_PORT", "3306")
 	dbName := getEnvOrDefault("DB_NAME", "database")
 
-	// conexao
+	// connection
 	dsn := fmt.Sprintf(
 		"%s:%s@tcp(%s:%s)/%s?parseTime=true",
 		dbUser,
@@ -32,15 +34,16 @@ func InitDB() *sql.DB {
 	)
 
 	var err error
+
 	db, err = sql.Open("mysql", dsn)
 
 	if err != nil {
 		log.Fatalf("Erro ao abrir conexão: %v", err)
 	}
 
-	// aumentar o tempo de espera para a conexão com o banco
+	// increase the connection timeout
 	for i := 0; i < 10; i++ {
-		// verifica conexão
+		// verify connection
 		if err := db.Ping(); err != nil {
 			log.Printf("Tentativa %d: Erro ao conectar no banco: %v. Tentando novamente em 5 segundos...", i+1, err)
 			time.Sleep(5 * time.Second)
@@ -68,7 +71,7 @@ func InitDB() *sql.DB {
 	return db
 }
 
-// retorna o valor da variável de ambiente ou um valor padrão
+// returns the value of the environment variable or a default value
 func getEnvOrDefault(key, defaultValue string) string {
 	value := os.Getenv(key)
 	if value == "" {

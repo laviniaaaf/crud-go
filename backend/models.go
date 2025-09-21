@@ -1,9 +1,9 @@
-// models = estruturas de dados
+// models = data structures
 
 package main
 
-// para enviar os itens da struct no http precisa que ele esteja em formato JSON,
-// pq as requisições http trabalham com JSON como texto
+// to send struct items to http, it must be in ( deve estar no) JSON format, 
+// since HTTP requests work with JSON as text
 
 type Item struct {
 	ID    int     `json:"id"`

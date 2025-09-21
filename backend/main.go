@@ -10,10 +10,10 @@ import (
 )
 
 func main() {
-	// espera um pouco para garantir que o banco de dados ta pronto
+	// waits a little to ensure the database is ready
 	time.Sleep(3 * time.Second)
 
-	// inicia o banco e cria a tabela
+	// starts the database and creates the table
 	db = InitDB()
 
 	defer db.Close()
@@ -29,7 +29,7 @@ func main() {
 		MaxAge:         300,
 	}))
 
-	// rotas da API
+	// API routes
 	r.Route("/itens", func(r chi.Router) {
 		r.Post("/", createItem)
 		r.Get("/", readItems)
@@ -50,7 +50,7 @@ func main() {
 		fs.ServeHTTP(w, req)
 	})
 
-	log.Println("Servidor rodando em http://localhost:8081 <---")
+	log.Println("Server running at http://localhost:8081 <---")
 	if err := http.ListenAndServe(":8080", r); err != nil {
 		log.Fatal(err)
 	}
