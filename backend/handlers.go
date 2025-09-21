@@ -16,15 +16,14 @@ func createItem(w http.ResponseWriter, r *http.Request) {
 
 	// decodifica o JSON  da requisicao para a struct item
 	if err := json.NewDecoder(r.Body).Decode(&item); err != nil {
-		http.Error(w, "JSON inválido", http.StatusBadRequest) // se tiver erro no JSON, retorna  400 (Bad Request)
+		http.Error(w, "JSON inválido", http.StatusBadRequest) 
 		return
 	}
 
-	// insert no banco
 	res, err := db.Exec("INSERT INTO items(nome, preco) VALUES(?, ?)", item.Nome, item.Preco)
 
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError) // erro 500
+		http.Error(w, err.Error(), http.StatusInternalServerError) 
 		return
 	}
 
@@ -32,7 +31,7 @@ func createItem(w http.ResponseWriter, r *http.Request) {
 
 	item.ID = int(id) // atualiza
 
-	// definir o cabeçalho com o tipo de conteudo
+	
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(item) // converte  de volta para JSON e envia como resposta http
 }
@@ -46,7 +45,7 @@ func readItems(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	defer rows.Close() // fecha a consulta no banco
+	defer rows.Close() 
 
 	var items []Item
 
@@ -59,7 +58,7 @@ func readItems(w http.ResponseWriter, r *http.Request) {
 		items = append(items, i)
 	}
 
-	// definir o cabeçalho com o tipo de conteudo
+	
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(items)
 }
@@ -91,7 +90,7 @@ func updateItem(w http.ResponseWriter, r *http.Request) {
 
 	item.ID = id
 
-	// definir o cabeçalho com o tipo de conteudo
+	
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(item)
 }
@@ -100,7 +99,7 @@ func deleteItem(w http.ResponseWriter, r *http.Request) {
 
 	idStr := chi.URLParam(r, "id")
 
-	id, err := strconv.Atoi(idStr) // converte a string para int, para poder usar no banco
+	id, err := strconv.Atoi(idStr) 
 
 	if err != nil {
 		http.Error(w, "ID inválido", http.StatusBadRequest)
@@ -121,7 +120,7 @@ func getItemByID(w http.ResponseWriter, r *http.Request) {
 
 	idStr := chi.URLParam(r, "id")
 
-	id, err := strconv.Atoi(idStr) // converte a string para int, para poder usar no banco
+	id, err := strconv.Atoi(idStr) 
 
 	if err != nil {
 		http.Error(w, "ID inválido", http.StatusBadRequest)
@@ -137,7 +136,7 @@ func getItemByID(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// definir o cabeçalho com o tipo de conteudo
+	
 	w.Header().Set("Content-Type", "application/json") // informa que os dados são JSON
 
 	json.NewEncoder(w).Encode(item)
