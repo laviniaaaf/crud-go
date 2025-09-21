@@ -16,29 +16,29 @@
     <input type="hidden" id="item-id">
 
     <div>
-      <label for="nome">Item Name:</label>
-      <input type="text" id="nome" placeholder="Ex: Notebook" required>
+      <label for="name">Item Name:</label>
+      <input type="text" id="name" placeholder="Ex: Laptop" required>
     </div>
 
     <div>
-      <label for="preco">Price:</label>
-      <input type="number" id="preco" step="0.01" placeholder="Ex: 4500.50" required>
+      <label for="price">Price:</label>
+      <input type="number" id="price" step="0.01" placeholder="Ex: 4500.50" required>
     </div>
 
     <button type="submit" id="btn-submit">Add Item</button>
-    <button type="button" id="btn-cancelar" onclick="cancelEdit()">Cancel Edit</button>
+    <button type="button" id="btn-cancel" onclick="cancelEdit()">Cancel Edit</button>
   </form>
 
   <div>
-    <label for="busca">Search item by ID:</label>
-    <input type="number" id="busca" placeholder="Ex: ID = 2" required>
-    <button type="button" id="btn-buscar" onclick="buscarItem()">Search</button>
+    <label for="search">Search item by ID:</label>
+    <input type="number" id="search" placeholder="Ex: ID = 2" required>
+    <button type="button" id="btn-search" onclick="searchItem()">Search</button>
   </div>
 
-  <ul id="resultado-busca"></ul>
+  <ul id="search-result"></ul>
 
   <h2>Item List</h2>
-  <ul id="lista-itens"></ul>
+  <ul id="item-list"></ul>
 
   <script src="/script.js"></script>
 </body>

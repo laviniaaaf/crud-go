@@ -29,16 +29,18 @@ button {
 }
 
 #btn-submit {
-    background-color: #28a745;
+    background-color: #28a745; 
 }
 
-#btn-cancelar {
-    background-color: #6c757d;
+#btn-cancel {
+    background-color: #6c757d; 
     display: none;
 }
-#btn-buscar{
-    background-color: #700f4b;
+
+#btn-search {
+    background-color: #700f4b; 
 }
+
 ul {
     list-style: none;
     padding: 0;
@@ -56,10 +58,10 @@ li {
     margin-left: 10px;
 }
 
-.btn-editar {
-    background-color: #007bff;
+.btn-edit {
+    background-color: #007bff; 
 }
 
-.btn-excluir {
-    background-color: #dc3545;
+.btn-delete {
+    background-color: #dc3545; 
 }
