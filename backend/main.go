@@ -38,7 +38,7 @@ func main() {
 		r.Delete("/{id}", deleteItem)
 	})
 
-	// frontend
+	
 	frontendPath := "./frontend"
 	fs := http.FileServer(http.Dir(frontendPath))
 
