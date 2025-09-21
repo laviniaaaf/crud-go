@@ -5,9 +5,6 @@ The application uses **Docker** containers to simplify project setup and executi
 
 ---
 
-## Download the repository
-git clone https://github.com/laviniaaaf/crud-go.git
-
 ## Start the container
 docker compose up --build
 
@@ -30,9 +27,6 @@ CRUD simples com **backend em Go** e **frontend em HTML, CSS e JavaScript**.
 A aplicação utiliza containers **Docker** para facilitar a configuração e execução do proejto.
 
 ---
-
-## Baixe o repositorio
-git clone https://github.com/laviniaaaf/crud-go.git
 
 ## Inicie o container
 docker compose up --build
