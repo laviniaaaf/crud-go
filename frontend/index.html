@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gerenciamento do CRUD</title>
+  <title>CRUD Management</title>
   <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="/style.css">
 </head>
@@ -11,33 +11,33 @@
 <body>
   <h1>Create | Read | Update | Delete</h1>
 
-  <h2>Formulário de Itens</h2>
+  <h2>Item Form</h2>
   <form id="form-item">
     <input type="hidden" id="item-id">
 
     <div>
-      <label for="nome">Nome do Item:</label>
+      <label for="nome">Item Name:</label>
       <input type="text" id="nome" placeholder="Ex: Notebook" required>
     </div>
 
     <div>
-      <label for="preco">Preço:</label>
+      <label for="preco">Price:</label>
       <input type="number" id="preco" step="0.01" placeholder="Ex: 4500.50" required>
     </div>
 
-    <button type="submit" id="btn-submit">Adicionar Item</button>
-    <button type="button" id="btn-cancelar" onclick="cancelarEdicao()">Cancelar Edição</button>
+    <button type="submit" id="btn-submit">Add Item</button>
+    <button type="button" id="btn-cancelar" onclick="cancelEdit()">Cancel Edit</button>
   </form>
 
   <div>
-    <label for="busca">Buscar item pelo ID:</label>
+    <label for="busca">Search item by ID:</label>
     <input type="number" id="busca" placeholder="Ex: ID = 2" required>
-    <button type="button" id="btn-buscar" onclick="buscarItem()">Buscar</button>
+    <button type="button" id="btn-buscar" onclick="buscarItem()">Search</button>
   </div>
 
   <ul id="resultado-busca"></ul>
 
-  <h2>Lista de Itens</h2>
+  <h2>Item List</h2>
   <ul id="lista-itens"></ul>
 
   <script src="/script.js"></script>
