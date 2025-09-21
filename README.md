@@ -37,7 +37,7 @@ A aplicação utiliza containers **Docker** para facilitar a configuração e ex
 ## Baixe o repositório e clone com o comando
 
 ```bash
-git clone <URL-do-repositório>
+git clone <repository-URL>
 ````
 
 ## Inicie o container
