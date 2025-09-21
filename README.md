@@ -8,7 +8,7 @@ The application uses **Docker** containers to simplify project setup and executi
 ## Download the repository and clone it with the following command
 
 ```bash
-git clone <URL-do-repositório>
+git clone <repository-URL>
 ````
 
 ## Start the container
@@ -37,7 +37,7 @@ A aplicação utiliza containers **Docker** para facilitar a configuração e ex
 ## Baixe o repositório e clone com o comando
 
 ```bash
-git clone <repository-URL>
+git clone <URL-do-repositório>
 ````
 
 ## Inicie o container
