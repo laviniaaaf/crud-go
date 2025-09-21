@@ -1,4 +1,4 @@
-const apiUrl = '/items';
+const apiUrl = '/itens';
 
 const form = document.getElementById('form-item');
 const itemIdInput = document.getElementById('item-id');
@@ -24,7 +24,7 @@ async function loadItems() {
         items.forEach(item => {
             const li = document.createElement('li');
             li.innerHTML = `
-                <span><b>ID:</b> ${item.id} — ${item.name}: $ ${item.price.toFixed(2)}</span>
+                <span><b>ID:</b> ${item.id} — ${item.nome}: $ ${item.preco.toFixed(2)}</span>
                 <div class="item-actions">
                     <button class="btn-edit" onclick='prepareEdit(${JSON.stringify(item)})'>Edit</button>
                     <button class="btn-delete" onclick="deleteItem(${item.id})">Delete</button>
@@ -42,8 +42,8 @@ form.addEventListener('submit', async (event) => {
 
     const id = itemIdInput.value;
     const item = {
-        name: nameInput.value,
-        price: parseFloat(priceInput.value)
+        nome: nameInput.value,
+        preco: parseFloat(priceInput.value)
     };
 
     if (id) {
@@ -75,8 +75,8 @@ async function addItem(item) {
 
 function prepareEdit(item) {
     itemIdInput.value = item.id;
-    nameInput.value = item.name;
-    priceInput.value = item.price;
+    nameInput.value = item.nome;
+    priceInput.value = item.preco;
 
     submitButton.textContent = 'Update Item';
     cancelButton.style.display = 'inline-block';
@@ -125,7 +125,7 @@ async function searchItem() {
 
         const li = document.createElement('li');
         li.innerHTML = `
-            <span><b>ID:</b> ${item.id} — ${item.name}: $ ${item.price.toFixed(2)}</span>
+            <span><b>ID:</b> ${item.id} — ${item.nome}: $ ${item.preco.toFixed(2)}</span>
             <div class="item-actions">
                 <button class="btn-edit" onclick='prepareEdit(${JSON.stringify(item)})'>Edit</button>
                 <button class="btn-delete" onclick="deleteItem(${item.id})">Delete</button>
