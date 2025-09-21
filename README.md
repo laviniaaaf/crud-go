@@ -5,6 +5,12 @@ The application uses **Docker** containers to simplify project setup and executi
 
 ---
 
+## Download the repository and clone it with the following command
+
+```bash
+git clone <URL-do-repositório>
+````
+
 ## Start the container
 docker compose up --build
 
@@ -27,6 +33,12 @@ CRUD simples com **backend em Go** e **frontend em HTML, CSS e JavaScript**.
 A aplicação utiliza containers **Docker** para facilitar a configuração e execução do proejto.
 
 ---
+
+## Baixe o repositório e clone com o comando
+
+```bash
+git clone <URL-do-repositório>
+````
 
 ## Inicie o container
 docker compose up --build
