@@ -50,7 +50,6 @@ func InitDB() *sql.DB {
 		break
 	}
 
-	// cria a tabela do banco
 	query := `
 	CREATE TABLE IF NOT EXISTS items  (
 		id INT AUTO_INCREMENT PRIMARY KEY,
@@ -69,7 +68,7 @@ func InitDB() *sql.DB {
 	return db
 }
 
-// o getEnvOrDefault retorna o valor da variável de ambiente ou um valor padrão
+// retorna o valor da variável de ambiente ou um valor padrão
 func getEnvOrDefault(key, defaultValue string) string {
 	value := os.Getenv(key)
 	if value == "" {
