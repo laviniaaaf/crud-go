@@ -12,8 +12,6 @@ import (
 
 var db *sql.DB
 
-// initialize the connection to the database and create the table
-
 func InitDB() *sql.DB {
 	
 // environment variables defined in docker-compose
@@ -38,18 +36,16 @@ func InitDB() *sql.DB {
 	db, err = sql.Open("mysql", dsn)
 
 	if err != nil {
-		log.Fatalf("Erro ao abrir conexão: %v", err)
+		log.Fatalf("Error opening connection: %v", err)
 	}
 
-	// increase the connection timeout
 	for i := 0; i < 10; i++ {
-		// verify connection
 		if err := db.Ping(); err != nil {
-			log.Printf("Tentativa %d: Erro ao conectar no banco: %v. Tentando novamente em 5 segundos...", i+1, err)
+			log.Printf("Attempt %d: Error connecting to database: %v. Trying again in 5 seconds...", i+1, err)
 			time.Sleep(5 * time.Second)
 			continue
 		}
-		log.Println("Conectado ao banco:", dbName)
+		log.Println("Connected to the bank:", dbName)
 		break
 	}
 
@@ -63,15 +59,15 @@ func InitDB() *sql.DB {
 	_, err = db.Exec(query)
 
 	if err != nil {
-		log.Fatalf("Erro ao criar tabela: %v", err)
+		log.Fatalf("Error creating table: %v", err)
 	}
 
-	log.Println("A tabela items criada e verificada com sucesso!!!!")
+	log.Println("Table items created and verified successfully!!!!")
 
 	return db
 }
 
-// returns the value of the environment variable or a default value
+
 func getEnvOrDefault(key, defaultValue string) string {
 	value := os.Getenv(key)
 	if value == "" {
