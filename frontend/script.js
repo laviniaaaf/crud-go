@@ -7,7 +7,6 @@ const priceInput = document.getElementById('price');
 const submitButton = document.getElementById('btn-submit');
 const cancelButton = document.getElementById('btn-cancel');
 
-// load items from the API
 async function loadItems() {
     try {
         const res = await fetch(apiUrl);
