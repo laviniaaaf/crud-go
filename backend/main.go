@@ -26,7 +26,7 @@ func main() {
 		MaxAge:         300,
 	}))
 
-	// API routes
+	// API 
 	r.Route("/itens", func(r chi.Router) {
 		r.Post("/", createItem)
 		r.Get("/", readItems)

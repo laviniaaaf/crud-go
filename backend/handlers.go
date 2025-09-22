@@ -20,7 +20,7 @@ func createItem(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	res, err := db.Exec("INSERT INTO items(nome, preco) VALUES(?, ?)", item.Nome, item.Preco)
+	res, err := db.Exec("INSERT INTO items(name, price) VALUES(?, ?)", item.Name, item.Price)
 
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError) 
@@ -38,7 +38,7 @@ func createItem(w http.ResponseWriter, r *http.Request) {
 
 func readItems(w http.ResponseWriter, r *http.Request) {
 
-	rows, err := db.Query("SELECT id, nome, preco FROM items")
+	rows, err := db.Query("SELECT id, name, price FROM items")
 
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -51,7 +51,7 @@ func readItems(w http.ResponseWriter, r *http.Request) {
 
 	for rows.Next() {
 		var i Item
-		if err := rows.Scan(&i.ID, &i.Nome, &i.Preco); err != nil {
+		if err := rows.Scan(&i.ID, &i.Name, &i.Price); err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
@@ -81,7 +81,7 @@ func updateItem(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	_, err = db.Exec("UPDATE items SET nome=?, preco=? WHERE id=?", item.Nome, item.Preco, id)
+	_, err = db.Exec("UPDATE items SET name=?, price=? WHERE id=?", item.Name, item.Price, id)
 
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -129,7 +129,7 @@ func getItemByID(w http.ResponseWriter, r *http.Request) {
 
 	var item Item
 
-	err = db.QueryRow("SELECT id, nome, preco FROM items WHERE id = ?", id).Scan(&item.ID, &item.Nome, &item.Preco)
+	err = db.QueryRow("SELECT id, name, price FROM items WHERE id = ?", id).Scan(&item.ID, &item.Name, &item.Price)
 
 	if err != nil {
 		http.Error(w, "Item not found", http.StatusNotFound)

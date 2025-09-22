@@ -52,8 +52,8 @@ func InitDB() *sql.DB {
 	query := `
 	CREATE TABLE IF NOT EXISTS items  (
 		id INT AUTO_INCREMENT PRIMARY KEY,
-		nome VARCHAR(100) NOT NULL,
-		preco DECIMAL(10,2) NOT NULL
+		name VARCHAR(100) NOT NULL,
+		price DECIMAL(10,2) NOT NULL
 	)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 	`
 	_, err = db.Exec(query)

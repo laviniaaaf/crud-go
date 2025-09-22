@@ -1,15 +1,15 @@
 package main
 
 import (
-	"bytes"         // package to handle bytes
-	"encoding/json" // encode and decode JSON
+	"bytes"         
+	"encoding/json" 
 	"net/http"
-	"net/http/httptest" //  test HTTP
-	"strconv"           //  string conversion
-	"testing"           // tests
+	"net/http/httptest" 
+	"strconv"           
+	"testing"          
 
 	"github.com/DATA-DOG/go-sqlmock"
-	"github.com/go-chi/chi/v5" //  router package
+	"github.com/go-chi/chi/v5" 
 	_ "github.com/go-sql-driver/mysql"
 )
 
@@ -22,7 +22,7 @@ import (
 // the marshal = converts any value (struct, map) to a byte array ([]byte) that becomes JSON format
 
 // mockDB = global variable for database mock
-var mockDB sqlmock.Sqlmock // define global variable mockDB
+var mockDB sqlmock.Sqlmock 
 
 func TestMain(m *testing.M) {
 
@@ -42,14 +42,14 @@ func TestCreateItem(t *testing.T) {
 	t.Run("success", func(t *testing.T) {
 
 		item := Item{
-			Nome:  "Monitor",
-			Preco: 990.50,
+			Name:  "Monitor",
+			Price: 990.50,
 		}
 
 		body, _ := json.Marshal(item) // transforms the item into JSON
 
 		mockDB.ExpectExec("INSERT INTO items").
-			WithArgs(item.Nome, item.Preco).
+			WithArgs(item.Name, item.Price).
 			WillReturnResult(sqlmock.NewResult(1, 1))
 
 		req := httptest.NewRequest("POST", "/itens", bytes.NewReader(body))
@@ -124,8 +124,8 @@ func TestReadItems(t *testing.T) {
 		t.Errorf("Unexpected number of items: received %d, expected %d", len(items), 2)
 	}
 
-	if items[0].Nome != "Monitor" {
-		t.Errorf("Unexpected item name: received %s, expected %s", items[0].Nome, "Monitor")
+	if items[0].Name != "Monitor" {
+		t.Errorf("Unexpected item name: received %s, expected %s", items[0].Name, "Monitor")
 	}
 
 	if err := mockDB.ExpectationsWereMet(); err != nil {
@@ -138,8 +138,8 @@ func TestUpdateItem(t *testing.T) {
 	t.Run("success", func(t *testing.T) {
 		id := 1
 		item := Item{
-			Nome:  "Mouse Update",
-			Preco: 75.00,
+			Name:  "Mouse Update",
+			Price: 75.00,
 		}
 
 		body, _ := json.Marshal(item)
@@ -153,7 +153,7 @@ func TestUpdateItem(t *testing.T) {
 		rr := httptest.NewRecorder()
 
 		mockDB.ExpectExec("UPDATE items").
-			WithArgs(item.Nome, item.Preco, id).
+			WithArgs(item.Name, item.Price, id).
 			WillReturnResult(sqlmock.NewResult(0, 1))
 
 		r.ServeHTTP(rr, req)
