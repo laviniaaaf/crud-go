@@ -3,15 +3,12 @@ package main
 import (
 	"log"
 	"net/http"
-	"time"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/cors"
 )
 
 func main() {
-	// waits a little to ensure the database is ready
-	time.Sleep(3 * time.Second)
 
 	// starts the database and creates the table
 	db = InitDB()
@@ -38,7 +35,6 @@ func main() {
 		r.Delete("/{id}", deleteItem)
 	})
 
-	
 	frontendPath := "./frontend"
 	fs := http.FileServer(http.Dir(frontendPath))
 
@@ -50,7 +46,7 @@ func main() {
 		fs.ServeHTTP(w, req)
 	})
 
-	log.Println("Server running at http://localhost:8081 <---")
+	log.Println("Server running at http://localhost:8082 <---")
 	if err := http.ListenAndServe(":8080", r); err != nil {
 		log.Fatal(err)
 	}

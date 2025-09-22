@@ -1,28 +1,24 @@
-FROM golang:1.25-alpine AS builder
+FROM golang:1.23-alpine AS builder
 
 WORKDIR /app
 
-# Instala git e certificados
-RUN apk add --no-cache git ca-certificates
-
-# Copia go.mod e go.sum da raiz
+# Copy go.mod and go.sum from the root
 COPY go.mod go.sum ./
 RUN go mod download
 
-# Copia todo o backend
+# Copy todo o backend
 COPY ./backend ./backend
 
-# Compila o aplicativo
+# Compile the application
 RUN go build -o main ./backend
 
 FROM alpine:latest
 WORKDIR /app
-RUN apk add --no-cache ca-certificates
 
-# Copia o binário compilado
+# Copy the compiled binary
 COPY --from=builder /app/main .
 
-# Copia os arquivos o frontend para serem servidos pelo backend
+# Copy the frontend files to be served by the backend
 COPY ./frontend ./frontend
 
 EXPOSE 8080
@@ -30,4 +26,5 @@ CMD ["./main"]
 
 # docker compose up --build
 #docker compose ps
-# para o conteiner = docker compose down
+#  stop conteiner = docker compose down
+# docker compose up -d --remove-orphans --> up new projct and to clean the containers that nnot use more
