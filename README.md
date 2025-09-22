@@ -8,15 +8,7 @@ The application uses **Docker** containers to simplify project setup and executi
 ## Start the container
 docker compose up --build
 
-## Project structure
-crud-go:
-
- ├── backend   
- ├──  frontend  
- └── docker-compose.yml  
- └── dockerfile
-
- ## Access
+## Access
  http://localhost:8081
 
  ---
@@ -30,14 +22,6 @@ A aplicação utiliza containers **Docker** para facilitar a configuração e ex
 
 ## Inicie o container
 docker compose up --build
-
-## Estrutura do projeto
-crud-go:
-
- ├── backend   
- ├──  frontend  
- └── docker-compose.yml  
- └── dockerfile
 
 ## Acesso
 http://localhost:8081
