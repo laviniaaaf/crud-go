@@ -1,15 +1,15 @@
 package main
 
 import (
-	"bytes"         
-	"encoding/json" 
+	"bytes"
+	"encoding/json"
 	"net/http"
-	"net/http/httptest" 
-	"strconv"           
-	"testing"          
+	"net/http/httptest"
+	"strconv"
+	"testing"
 
 	"github.com/DATA-DOG/go-sqlmock"
-	"github.com/go-chi/chi/v5" 
+	"github.com/go-chi/chi/v5"
 	_ "github.com/go-sql-driver/mysql"
 )
 
@@ -22,7 +22,7 @@ import (
 // the marshal = converts any value (struct, map) to a byte array ([]byte) that becomes JSON format
 
 // mockDB = global variable for database mock
-var mockDB sqlmock.Sqlmock 
+var mockDB sqlmock.Sqlmock
 
 func TestMain(m *testing.M) {
 
@@ -42,7 +42,7 @@ func TestCreateItem(t *testing.T) {
 	t.Run("success", func(t *testing.T) {
 
 		item := Item{
-			Name:  "Monitor",
+			Name:  "Computer",
 			Price: 990.50,
 		}
 
@@ -95,11 +95,11 @@ func TestCreateItem(t *testing.T) {
 
 func TestReadItems(t *testing.T) {
 
-	rows := sqlmock.NewRows([]string{"id", "nome", "preco"}).
+	rows := sqlmock.NewRows([]string{"id", "name", "price"}).
 		AddRow(1, "Monitor", 990.50).
 		AddRow(2, "Teclado", 145.99)
 
-	mockDB.ExpectQuery("SELECT id, nome, preco FROM items").
+	mockDB.ExpectQuery("SELECT id, name, price FROM items").
 		WillReturnRows(rows)
 
 	req := httptest.NewRequest("GET", "/itens", nil)
