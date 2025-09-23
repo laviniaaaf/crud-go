@@ -96,8 +96,8 @@ func TestCreateItem(t *testing.T) {
 func TestReadItems(t *testing.T) {
 
 	rows := sqlmock.NewRows([]string{"id", "name", "price"}).
-		AddRow(1, "Monitor", 990.50).
-		AddRow(2, "Teclado", 145.99)
+		AddRow(1, "Computer", 990.50).
+		AddRow(2, "Keyboard Redragon", 145.99)
 
 	mockDB.ExpectQuery("SELECT id, name, price FROM items").
 		WillReturnRows(rows)
@@ -124,8 +124,8 @@ func TestReadItems(t *testing.T) {
 		t.Errorf("Unexpected number of items: received %d, expected %d", len(items), 2)
 	}
 
-	if items[0].Name != "Monitor" {
-		t.Errorf("Unexpected item name: received %s, expected %s", items[0].Name, "Monitor")
+	if items[0].Name != "Computer" {
+		t.Errorf("Unexpected item name: received %s, expected %s", items[0].Name, "Computer")
 	}
 
 	if err := mockDB.ExpectationsWereMet(); err != nil {
@@ -168,7 +168,7 @@ func TestUpdateItem(t *testing.T) {
 	})
 
 	t.Run("id_invalid", func(t *testing.T) {
-		req := httptest.NewRequest("PUT", "/itens/nao-e-um-id", nil)
+		req := httptest.NewRequest("PUT", "/itens/not-is-a-id", nil)
 
 		rr := httptest.NewRecorder()
 
@@ -210,7 +210,7 @@ func TestDeleteItem(t *testing.T) {
 	})
 
 	t.Run("id_invalid", func(t *testing.T) {
-		req := httptest.NewRequest("DELETE", "/itens/nao-e-um-id", nil)
+		req := httptest.NewRequest("DELETE", "/itens/not-is-a-id", nil)
 
 		rr := httptest.NewRecorder()
 

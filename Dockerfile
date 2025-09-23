@@ -6,7 +6,7 @@ WORKDIR /app
 COPY go.mod go.sum ./
 RUN go mod download
 
-# Copy todo o backend
+# Copy all backend
 COPY ./backend ./backend
 
 # Compile the application
@@ -25,6 +25,6 @@ EXPOSE 8080
 CMD ["./main"]
 
 # docker compose up --build
-#docker compose ps
+# docker compose ps
 #  stop conteiner = docker compose down
 # docker compose up -d --remove-orphans --> up new projct and to clean the containers that nnot use more
